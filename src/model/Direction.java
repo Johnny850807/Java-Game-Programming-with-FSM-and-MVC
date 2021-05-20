@@ -8,20 +8,18 @@ import java.awt.*;
 public enum Direction {
     UP, DOWN, LEFT, RIGHT;
 
-    public void translate(Point location) {
+    public Dimension translate() {
         switch (this) {
             case UP:
-                location.translate(0, -6);
-                break;
+                return new Dimension(0, -6);
             case DOWN:
-                location.translate(0, 6);
-                break;
+                return new Dimension(0, 6);
             case LEFT:
-                location.translate(-6, 0);
-                break;
+                return new Dimension(-6, 0);
             case RIGHT:
-                location.translate(6, 0);
-                break;
+                return new Dimension(6, 0);
+            default:
+                throw new IllegalStateException("Impossible");
         }
     }
 }

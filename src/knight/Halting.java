@@ -1,4 +1,4 @@
-package extensions;
+package knight;
 
 import fsm.CyclicSequence;
 import fsm.ImageState;

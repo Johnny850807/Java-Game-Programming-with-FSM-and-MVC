@@ -1,12 +1,8 @@
 package controller;
 
-import extensions.Knight;
 import model.Sprite;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)

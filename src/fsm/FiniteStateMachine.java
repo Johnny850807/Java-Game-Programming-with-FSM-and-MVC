@@ -28,11 +28,9 @@ public class FiniteStateMachine implements StateMachine {
 
     @Override
     public void trigger(Object event) {
-        State from = current;
         State to = transitionTable.get(current).get(event);
         if (to != null) {
             current = to;
-            System.out.printf("%s -> (%s) -> %s\n", from, event, to);
         }
     }
 

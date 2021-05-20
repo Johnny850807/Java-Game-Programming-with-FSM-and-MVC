@@ -1,6 +1,6 @@
 package controller;
 
-import extensions.Knight;
+import knight.Knight;
 import model.Direction;
 import model.Sprite;
 import model.World;
@@ -11,25 +11,30 @@ import java.util.Collection;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class Game extends GameLoop {
-    private final Knight knight;
+    private final Knight p1;
+    private final Knight p2;
     private final World world;
 
-    public Game(World world, Knight knight) {
-        this.knight = knight;
+    public Game(World world, Knight p1, Knight p2) {
+        this.p1 = p1;
+        this.p2 = p2;
         this.world = world;
-        world.addSprite(knight);
     }
 
-    public void moveKnight(Direction direction) {
-        knight.move(direction);
+    public void moveKnight(int playerNumber, Direction direction) {
+        getPlayer(playerNumber).move(direction);
     }
 
-    public void stopKnight(Direction direction) {
-        knight.stop(direction);
+    public void stopKnight(int playerNumber, Direction direction) {
+        getPlayer(playerNumber).stop(direction);
     }
 
-    public void attack() {
-        knight.attack();
+    public void attack(int playerNumber) {
+        getPlayer(playerNumber).attack();
+    }
+
+    public Knight getPlayer(int playerNumber) {
+        return playerNumber == 1 ? p1 : p2;
     }
 
     @Override

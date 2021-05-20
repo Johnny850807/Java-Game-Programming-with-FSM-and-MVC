@@ -1,8 +1,8 @@
-package extensions;
+package knight;
 
 import fsm.CyclicSequence;
 import fsm.ImageState;
-import fsm.Sequence;
+import model.Direction;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import java.util.List;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class Moving extends CyclicSequence {
+    public static final String AUDIO_STEP1 = "step1";
+    public static final String AUDIO_STEP2 = "step2";
     private final Knight knight;
 
     public Moving(Knight knight, List<ImageState> states) {
@@ -19,9 +21,12 @@ public class Moving extends CyclicSequence {
 
     @Override
     public void update() {
-        super.update();
-        knight.getDirections()
-                .forEach(direction -> direction.translate(knight.getLocation()));
+        if (knight.isAlive()) {
+            super.update();
+            for (Direction direction : knight.getDirections()) {
+                knight.getWorld().move(knight, direction.translate());
+            }
+        }
     }
 
     @Override

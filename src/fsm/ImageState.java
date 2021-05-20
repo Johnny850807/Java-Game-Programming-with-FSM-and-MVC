@@ -8,6 +8,7 @@ import java.awt.*;
 public class ImageState implements State {
     private final Image image;
     protected ImageRenderer render;
+
     public ImageState(Image image, ImageRenderer render) {
         this.image = image;
         this.render = render;
