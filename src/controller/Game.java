@@ -2,10 +2,7 @@ package controller;
 
 import knight.Knight;
 import model.Direction;
-import model.Sprite;
 import model.World;
-
-import java.util.Collection;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
@@ -38,7 +35,7 @@ public class Game extends GameLoop {
     }
 
     @Override
-    protected Collection<Sprite> getSprites() {
-        return world.getSprites();
+    protected World getWorld() {
+        return world;
     }
 }

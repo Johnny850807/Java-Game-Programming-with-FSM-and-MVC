@@ -20,6 +20,12 @@ public class World {
         addSprites(sprites);
     }
 
+    public void update() {
+        for (Sprite sprite : sprites) {
+            sprite.update();
+        }
+    }
+
     public void addSprites(Sprite... sprites) {
         stream(sprites).forEach(this::addSprite);
     }
@@ -55,5 +61,13 @@ public class World {
 
     public List<Sprite> getSprites() {
         return sprites;
+    }
+
+    // Actually, directly couple your model with the class "java.awt.Graphics" is not a good design
+    // If you want to decouple them, create an interface that encapsulates the variation of the Graphics.
+    public void render(Graphics g) {
+        for (Sprite sprite : sprites) {
+            sprite.render(g);
+        }
     }
 }

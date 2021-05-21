@@ -1,8 +1,6 @@
 package controller;
 
-import model.Sprite;
-
-import java.util.Collection;
+import model.World;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
@@ -22,16 +20,14 @@ public abstract class GameLoop {
     private void gameLoop() {
         running = true;
         while (running) {
-            Collection<Sprite> sprites = getSprites();
-            for (Sprite sprite : sprites) {
-                sprite.update();
-            }
-            view.render(sprites);
+            World world = getWorld();
+            world.update();
+            view.render(world);
             delay(15);
         }
     }
 
-    protected abstract Collection<Sprite> getSprites();
+    protected abstract World getWorld();
 
     public void stop() {
         running = false;
@@ -48,6 +44,6 @@ public abstract class GameLoop {
 
     public interface View {
 
-        void render(Collection<Sprite> sprites);
+        void render(World world);
     }
 }

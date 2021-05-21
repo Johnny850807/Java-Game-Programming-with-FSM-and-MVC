@@ -4,6 +4,7 @@ import controller.Game;
 import controller.GameLoop;
 import model.Direction;
 import model.Sprite;
+import model.World;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,11 +107,11 @@ public class GameView extends JFrame {
     }
 
     public static class Canvas extends JPanel implements GameLoop.View {
-        private Collection<Sprite> sprites;
+        private World world;
 
         @Override
-        public void render(Collection<Sprite> sprites) {
-            this.sprites = sprites;
+        public void render(World world) {
+            this.world = world;
             repaint(); // ask the JPanel to repaint, it will invoke paintComponent(g) after a while.
         }
 
@@ -120,10 +121,8 @@ public class GameView extends JFrame {
             // Now, let's paint
             g.setColor(Color.WHITE); // paint background with all white
             g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
-            // ask every sprite to paint itself on the canvas
-            for (Sprite sprite : sprites) {
-                sprite.render(g); // delegate
-            }
+
+            world.render(g); // ask the world to paint itself and paint the sprites on the canvas
         }
     }
 }
