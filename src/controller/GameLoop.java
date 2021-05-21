@@ -22,7 +22,7 @@ public abstract class GameLoop {
     private void gameLoop() {
         running = true;
         while (running) {
-            var sprites = getSprites();
+            Collection<Sprite> sprites = getSprites();
             for (Sprite sprite : sprites) {
                 sprite.update();
             }

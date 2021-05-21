@@ -28,9 +28,12 @@ public class FiniteStateMachine implements StateMachine {
 
     @Override
     public void trigger(Object event) {
-        State to = transitionTable.get(current).get(event);
-        if (to != null) {
-            current = to;
+        var transition = transitionTable.get(current);
+        if (transition != null) {
+            State to = transition.get(event);
+            if (to != null) {
+                current = to;
+            }
         }
     }
 

@@ -25,7 +25,7 @@ public class KnightImageRenderer implements ImageRenderer {
         } else {
             g.drawImage(image, range.x, range.y, range.width, range.height, null);
         }
-        g.setColor(Color.RED);
-        g.drawRect(body.x, body.y, body.width, body.height);
+         g.setColor(Color.RED);
+         g.drawRect(body.x, body.y, body.width, body.height);
     }
 }

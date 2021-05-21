@@ -20,6 +20,7 @@ public class KnightCollisionHandler implements CollisionHandler {
             } else {
                 to.setLocation(new Point(to.getX() + offsetRight / 3, to.getY()));
             }
+
         }
     }
 }

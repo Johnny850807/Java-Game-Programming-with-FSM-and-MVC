@@ -7,8 +7,8 @@ import model.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Collection;
 
 /**
@@ -28,17 +28,15 @@ public class GameView extends JFrame {
     }
 
     public void launch() {
+        // GUI Stuff
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setContentPane(canvas);
         setSize(WIDTH, HEIGHT);
         setContentPane(canvas);
         setVisible(true);
 
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent keyEvent) {
-            }
-
+        // Keyboard listener
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 switch (keyEvent.getKeyCode()) {
@@ -113,16 +111,18 @@ public class GameView extends JFrame {
         @Override
         public void render(Collection<Sprite> sprites) {
             this.sprites = sprites;
-            repaint();
+            repaint(); // ask the JPanel to repaint, it will invoke paintComponent(g) after a while.
         }
 
         @Override
-        protected void paintComponent(Graphics g) {
+        protected void paintComponent(Graphics g /*paintbrush*/) {
             super.paintComponent(g);
-            g.setColor(Color.WHITE);
+            // Now, let's paint
+            g.setColor(Color.WHITE); // paint background with all white
             g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
+            // ask every sprite to paint itself on the canvas
             for (Sprite sprite : sprites) {
-                sprite.render(g);
+                sprite.render(g); // delegate
             }
         }
     }

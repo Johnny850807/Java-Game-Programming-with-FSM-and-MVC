@@ -41,9 +41,9 @@ public class Attacking extends Sequence {
     @Override
     public void render(Graphics g) {
         super.render(g);
-        Rectangle damageArea = damageArea();
-        g.setColor(Color.BLUE);
-        g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
+         Rectangle damageArea = damageArea();
+         g.setColor(Color.BLUE);
+         g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
     }
 
     private void effectDamage() {
@@ -71,7 +71,7 @@ public class Attacking extends Sequence {
 
     @Override
     protected void onSequenceEnd() {
-        stateMachine.reset();
         currentPosition = 0;
+        stateMachine.reset();
     }
 }

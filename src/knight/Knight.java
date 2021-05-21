@@ -27,6 +27,10 @@ public class Knight extends HealthPointSprite {
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
 
+    public enum Event {
+        WALK, STOP, ATTACK, DAMAGED
+    }
+
     public Knight(int damage, Point location) {
         super(KNIGHT_HP);
         this.damage = damage;
@@ -36,18 +40,18 @@ public class Knight extends HealthPointSprite {
         fsm = new FiniteStateMachine();
 
         ImageRenderer imageRenderer = new KnightImageRenderer(this);
-        State halting = new WaitingPerFrame(4,
-                new Halting(imageStatesFromFolder("assets/halt", imageRenderer)));
-        State moving = new WaitingPerFrame(2,
-                new Moving(this, imageStatesFromFolder("assets/moving", imageRenderer)));
+        State idle = new WaitingPerFrame(4,
+                new Idle(imageStatesFromFolder("assets/idle", imageRenderer)));
+        State walking = new WaitingPerFrame(2,
+                new Walking(this, imageStatesFromFolder("assets/walking", imageRenderer)));
         State attacking = new WaitingPerFrame(3,
                 new Attacking(this, fsm, imageStatesFromFolder("assets/attack", imageRenderer)));
 
-        fsm.setInitialState(halting);
-        fsm.addTransition(from(halting).when(MOVE).to(moving));
-        fsm.addTransition(from(moving).when(STOP).to(halting));
-        fsm.addTransition(from(halting).when(ATTACK).to(attacking));
-        fsm.addTransition(from(moving).when(ATTACK).to(attacking));
+        fsm.setInitialState(idle);
+        fsm.addTransition(from(idle).when(WALK).to(walking));
+        fsm.addTransition(from(walking).when(STOP).to(idle));
+        fsm.addTransition(from(idle).when(ATTACK).to(attacking));
+        fsm.addTransition(from(walking).when(ATTACK).to(attacking));
     }
 
     public void attack() {
@@ -64,7 +68,7 @@ public class Knight extends HealthPointSprite {
         }
         if (!directions.contains(direction)) {
             this.directions.add(direction);
-            fsm.trigger(MOVE);
+            fsm.trigger(WALK);
         }
     }
 
@@ -109,8 +113,5 @@ public class Knight extends HealthPointSprite {
         return shape.bodySize;
     }
 
-    public enum Event {
-        MOVE, STOP, ATTACK, DAMAGED
-    }
 
 }
